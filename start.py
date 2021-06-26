@@ -1,12 +1,6 @@
 import os
-ON_HEROKU = os.environ.get('ON_HEROKU')
-
-if ON_HEROKU:
-    # get the heroku port
-    PORT = int(os.environ.get('PORT', 17995))  # as per OP comments default is 17995
-else:
-    PORT = 3000
-
+PORT = int(os.environ.get('PORT', 5000))
+print("PORT: ", PORT)
 
 import socket
 
