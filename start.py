@@ -33,10 +33,10 @@ while True:
             #break
         data = read(client_sock)
         print(data)
-        if data[0] == 10:
-            result = b'this work'
-        else:
-            result = b'HTTP/1.1 200 OK\r\n\r\nHello World!'
+        #if data[0] == 10:
+        #    result = b'this work'
+        #else:
+        result = b'HTTP/1.1 200 OK\r\n\r\nHello World!'
         #client_sock.sendall(data)
         client_sock.send(result)
         client_sock.close()
