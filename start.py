@@ -21,6 +21,7 @@ while True:
             # Клиент отключился
             client_sock.close()
             break
+        print(data)
         if data[0] == 10:
             result = b'this work'
         else:
