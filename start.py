@@ -21,7 +21,7 @@ while True:
             # Клиент отключился
             #break
         #client_sock.sendall(data)
-        client_sock.send('HTTP/1.1 200 OK\r\n\r\nHello World!')
+        client_sock.sendall('HTTP/1.1 200 OK\r\n\r\nHello World!')
         client_sock.close()
 
     #client_sock.close()
