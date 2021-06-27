@@ -20,6 +20,7 @@ while True:
         if not data:
             # Клиент отключился
             break
-        client_sock.sendall(data)
+        #client_sock.sendall(data)
+        client_sock.send('HTTP/1.0 200 OK\r\n\r\nHello World!')
 
     client_sock.close()
