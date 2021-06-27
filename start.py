@@ -17,10 +17,11 @@ while True:
         # Пока клиент не отключился, читаем передаваемые
         # им данные и отправляем их обратно
         data = client_sock.recv(1024)
-        if not data:
+        #if not data:
             # Клиент отключился
-            break
+            #break
         #client_sock.sendall(data)
-        client_sock.send('HTTP/1.0 200 OK\r\n\r\nHello World!')
+        client_sock.send('HTTP/1.1 200 OK\r\n\r\nHello World!')
+        client_sock.close()
 
-    client_sock.close()
+    #client_sock.close()
