@@ -1,11 +1,11 @@
 import os
-PORT = int(os.environ.get('PORT', 5000))
-print("PORT: ", PORT)
-
 import socket
 
+port = int(os.environ.get("PORT", 5000))
+print("PORT: ", port)
+
 serv_sock = socket.socket(socket.AF_INET, socket.SOCK_STREAM, proto=0)
-serv_sock.bind(('', 53210))
+serv_sock.bind(('', port))
 serv_sock.listen(10)
 
 while True:
