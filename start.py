@@ -23,7 +23,7 @@ while True:
             break
         if data[0] == 10:
             result = b'this work'
-        else
+        else:
             result = b'HTTP/1.1 200 OK\r\n\r\nHello World!'
         #client_sock.sendall(data)
         client_sock.send()
