@@ -26,7 +26,7 @@ while True:
         else:
             result = b'HTTP/1.1 200 OK\r\n\r\nHello World!'
         #client_sock.sendall(data)
-        client_sock.send()
+        client_sock.send(result)
         client_sock.close()
         break
 
