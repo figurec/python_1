@@ -31,13 +31,19 @@ def server():
         client_sock.close()
 '''
 
+
 def read(sock):
     buffer = b""
     while True:
-        data = sock.recv(1024 * 50)
-        if not data:
+        try:
+            data = sock.recv(10)
+            if not data:
+                #sock.close()
+                break
+            buffer += data
+        except socket.timeout:
+            print("socket.timeout")
             break
-        buffer += data
     return buffer
     #print(data)
 
@@ -46,12 +52,24 @@ def client():
     opt = ("example.com", 80)
     cln = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
     #cln = socket.create_connection(opt);
+    cln.settimeout(5)
+    #cln.setblocking(0)
     cln.connect(opt)
     h = b"GET / HTTP/1.1\r\n"
-    h += b"Host: example.com\r\n\r\n"
-    cln.sendall(h)
+    h += b"Host: example.com\r\n"
+    h += b"Connection: close\r\n\r\n" #close connection
+    #cln.sendall(h)
+    cln.send(h)
     res = read(cln)
     print(res)
+    '''
+    while True:
+      data = cln.recv(2048)
+      if not data: #close connection
+        print("cln.close")
+        break
+      print(data)
+    '''
     cln.close
 
 
@@ -59,11 +77,13 @@ import time
 
 
 def main():
-    print("main")
+    print("\n")
     #exit(0)
     start = time.time()
     client()
-    print ("it took", time.time() - start, "seconds.")
+    print ("\n", "it took", time.time() - start, "seconds.")
 
 if __name__ == "__main__":
     main()
+
+
