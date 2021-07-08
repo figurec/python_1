@@ -17,6 +17,7 @@ sel = selectors.DefaultSelector()
 
 class worker:
   def __init__(self, sock):
+    global CLASS_COUNT
     CLASS_COUNT += 1
     self.state = 10
     self.client_buffer = []
@@ -34,6 +35,7 @@ class worker:
     #sel.register(self.server, events, data=self)
     
   def __del__(self):
+    global CLASS_COUNT
     CLASS_COUNT -= 1
     print("destructor [", CLASS_COUNT, "]")
 
