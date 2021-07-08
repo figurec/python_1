@@ -6,7 +6,7 @@ import time
 
 import os
 
-HOST = 'localhost'  # The server's hostname or IP address
+HOST = ''  # The server's hostname or IP address
 #PORT = 16903        # The port used by the server
 PORT = int(os.environ.get("PORT", 5000))
 print("PORT: ", PORT)
@@ -101,7 +101,7 @@ class worker:
 
 
 
-sock = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
+sock = socket.socket(socket.AF_INET, socket.SOCK_STREAM, proto=0)
 sock.bind((HOST, PORT))
 sock.listen()
 sock.setblocking(False)
