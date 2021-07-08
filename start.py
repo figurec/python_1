@@ -4,6 +4,8 @@ import selectors
 import threading
 import time
 
+import os
+
 HOST = 'localhost'  # The server's hostname or IP address
 #PORT = 16903        # The port used by the server
 PORT = int(os.environ.get("PORT", 5000))
