@@ -19,13 +19,14 @@ class worker:
     self.state = 10
     self.client_buffer = []
     self.server_buffer = []
+    self.client_reg = True
+    self.server_reg = False
     self.events = selectors.EVENT_READ | selectors.EVENT_WRITE
     #client
     self.client, self.addr = sock.accept()
     self.client.setblocking(False)
     sel.register(self.client, self.events, data=self)
     #server
-    self.server_reg = False
     self.server = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
     #self.server.setblocking(False)
     #sel.register(self.server, events, data=self)
@@ -34,8 +35,11 @@ class worker:
     print("destructor")
 
   def sockets_close(self):
-    sel.unregister(self.client)
+    if self.client_reg == True:
+      self.client_reg = False
+      sel.unregister(self.client)
     if self.server_reg == True:
+      self.server_reg = False
       sel.unregister(self.server)
     self.client.close()
     self.server.close()
