@@ -19,6 +19,7 @@ class worker:
   def __init__(self, sock):
     global CLASS_COUNT
     CLASS_COUNT += 1
+    print("constructor [", CLASS_COUNT, "]")
     self.state = 10
     self.client_buffer = []
     self.server_buffer = []
