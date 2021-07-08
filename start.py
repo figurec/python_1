@@ -75,6 +75,8 @@ class worker:
       try:
         if len(buffer) > 0:
           sock.sendall( buffer.pop(0) )
+        if self.state == 0:
+          self.sockets_close()
       except socket.error as err:
         print("sockets_event: error write", err)
         self.sockets_close()
