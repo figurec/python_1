@@ -25,6 +25,7 @@ class worker:
     self.client.setblocking(False)
     sel.register(self.client, self.events, data=self)
     #server
+    self.server_reg = False
     self.server = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
     #self.server.setblocking(False)
     #sel.register(self.server, events, data=self)
@@ -34,7 +35,8 @@ class worker:
 
   def sockets_close(self):
     sel.unregister(self.client)
-    #sel.unregister(self.server)
+    if self.server_reg == True:
+      sel.unregister(self.server)
     self.client.close()
     self.server.close()
     self.state = 0
@@ -85,13 +87,14 @@ class worker:
         try:
           self.server.connect((host, port))
           self.server.setblocking(False)
+          self.server_reg = True
           sel.register(self.server, self.events, data=self)
         except socket.error as err:
           self.sockets_close()
         self.client_buffer.append(b"true\r\n\r\n")
       else:
         self.state = 0
-        self.client_buffer.append(b"HTTP/1.1 200 OK\r\nConnection: close\r\n\r\nERROR PAGE") # страница заглушка
+        self.client_buffer.append(b"HTTP/1.1 200 OK\r\nConnection: close\r\n\r\nERROR PAGE Its My Page") # страница заглушка
     elif self.state == 20:
       self.server_buffer.append( recv_data )
     
