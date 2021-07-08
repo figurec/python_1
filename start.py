@@ -83,6 +83,7 @@ class worker:
     if self.state == 10:
       host, port = self.get_domain_port(recv_data)
       if host is not None and port is not None:
+        print(host, port)
         self.state = 20
         try:
           self.server.connect((host, port))
