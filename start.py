@@ -34,7 +34,7 @@ class worker:
 
   def sockets_close(self):
     sel.unregister(self.client)
-    sel.unregister(self.server)
+    #sel.unregister(self.server)
     self.client.close()
     self.server.close()
     self.state = 0
