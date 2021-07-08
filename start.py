@@ -11,11 +11,13 @@ HOST = ''  # The server's hostname or IP address
 PORT = int(os.environ.get("PORT", 5000))
 print("PORT: ", PORT)
 
+CLASS_COUNT = 0
 
 sel = selectors.DefaultSelector()
 
 class worker:
   def __init__(self, sock):
+    CLASS_COUNT += 1
     self.state = 10
     self.client_buffer = []
     self.server_buffer = []
@@ -32,7 +34,8 @@ class worker:
     #sel.register(self.server, events, data=self)
     
   def __del__(self):
-    print("destructor")
+    CLASS_COUNT -= 1
+    print("destructor [", CLASS_COUNT, "]")
 
   def sockets_close(self):
     if self.client_reg == True:
