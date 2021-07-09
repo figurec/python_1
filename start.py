@@ -87,7 +87,9 @@ class worker:
     if mask & selectors.EVENT_WRITE:
       try:
         if len(buffer) > 0:
-          sock.sendall( buffer.pop(0) )
+          snd = buffer.pop(0)
+          print(snd)
+          sock.sendall( snd )
         if self.state == 0:
           self.sockets_close()
       except socket.error as err:
@@ -137,4 +139,3 @@ while True:
     else:
       key.data.sockets_event(key, mask)
       
-
