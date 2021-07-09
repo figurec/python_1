@@ -99,6 +99,7 @@ class worker:
       host, port = self.get_domain_port(recv_data)
       if host is not None and port is not None:
         print(host, port)
+        print(recv_data)
         self.state = 20
         try:
           self.server.connect((host, port))
