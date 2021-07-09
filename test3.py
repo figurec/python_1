@@ -12,8 +12,6 @@ while True:
   conn, addr = sock.accept()
   while True:
     data = conn.recv(1024)
-    if data:
-      print(data)
-    else:
-      conn.close()
-      break
+    print(data)
+    conn.close()
+    break
