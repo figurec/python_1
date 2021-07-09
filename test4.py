@@ -1,35 +1,13 @@
-#google websockets python
-#https://coderoad.ru/3142705/Существует-ли-клиент-WebSocket-реализованный-для-Python
-import websocket
-import thread
-import time
+import asyncio
+import os
 
-def on_message(ws, message):
-    print message
+import websockets
 
-def on_error(ws, error):
-    print error
+async def echo(websocket, path):
+    async for message in websocket:
+        await websocket.send(message)
 
-def on_close(ws):
-    print "### closed ###"
+start_server = websockets.serve(echo, "", int(os.environ["PORT"]))
 
-def on_open(ws):
-    def run(*args):
-        for i in range(30000):
-            time.sleep(1)
-            ws.send("Hello %d" % i)
-        time.sleep(1)
-        ws.close()
-        print "thread terminating..."
-    thread.start_new_thread(run, ())
-
-
-if __name__ == "__main__":
-    websocket.enableTrace(True)
-    ws = websocket.WebSocketApp("ws://echo.websocket.org/",
-                                on_message = on_message,
-                                on_error = on_error,
-                                on_close = on_close)
-    ws.on_open = on_open
-
-    ws.run_forever()
+asyncio.get_event_loop().run_until_complete(start_server)
+asyncio.get_event_loop().run_forever()
