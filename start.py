@@ -107,6 +107,7 @@ class worker:
           self.server_reg = True
           sel.register(self.server, self.events, data=self)
         except socket.error as err:
+          print("client_read: error: server connect")
           self.sockets_close()
         self.client_buffer.append(b"HTTP/1.1 200 OK\r\n\r\n")
       else:
@@ -136,3 +137,4 @@ while True:
     else:
       key.data.sockets_event(key, mask)
       
+
