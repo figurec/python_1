@@ -1,3 +1,9 @@
+#google - heroku python socket
+#https://stackoverflow.com/questions/60583950/python-socket-server-in-heroku
+#google - What HTTP Headers is my browser sending
+#get headers - http://www.xhaus.com/headers
+# websocket client - https://websocket.org/echo.html
+
 import asyncio
 import os
 
