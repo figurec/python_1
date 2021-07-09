@@ -5,7 +5,7 @@ HOST = ''
 PORT = int(os.environ.get("PORT", 5000))
 print("PORT: ", PORT)
 
-buffer = ""
+buffer = b""
 server = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
 server.connect(("example.com", 80))
 
