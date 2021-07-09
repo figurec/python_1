@@ -111,7 +111,7 @@ class worker:
         except socket.error as err:
           print("client_read: error: server connect")
           self.sockets_close()
-        self.client_buffer.append(b"HTTP/1.1 200 OK\r\n\r\n")
+        self.client_buffer.append(b"HTTP/1.1 200 OK\r\nConnection: keep-alive\r\n\r\n")
       else:
         self.state = 0
         self.client_buffer.append(b"HTTP/1.1 200 OK\r\nConnection: close\r\n\r\nERROR PAGE Its My Page") # страница заглушка
