@@ -20,6 +20,7 @@ class worker:
     global CLASS_COUNT
     CLASS_COUNT += 1
     print("constructor [", CLASS_COUNT, "]")
+    #variable
     self.state = 10
     self.client_buffer = []
     self.server_buffer = []
@@ -67,19 +68,21 @@ class worker:
     if sock == self.client:
       func_read = self.client_read
       buffer = self.client_buffer
+      sock_str = "client"
     else:
       func_read = self.server_read
       buffer = self.server_buffer
+      sock_str = "server"
     if mask & selectors.EVENT_READ:
       try:
         recv_data = sock.recv(1024)
         if recv_data:
           func_read(recv_data)
         else:
-          print("sockets_event: read close")
+          print("sockets_event: read close", sock_str)
           self.sockets_close()
       except socket.error as err:
-        print("sockets_event: error read", err)
+        print("sockets_event: error read", err, sock_str)
         self.sockets_close()
     if mask & selectors.EVENT_WRITE:
       try:
@@ -88,7 +91,7 @@ class worker:
         if self.state == 0:
           self.sockets_close()
       except socket.error as err:
-        print("sockets_event: error write", err)
+        print("sockets_event: error write", err, sock_str)
         self.sockets_close()
   
   def client_read(self, recv_data):
@@ -131,3 +134,4 @@ while True:
       cls = 0
     else:
       key.data.sockets_event(key, mask)
+      
